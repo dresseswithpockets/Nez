@@ -1,6 +1,7 @@
 ﻿<Project>
 	<PropertyGroup>
 		<BaseIntermediateOutputPath>obj\Nez</BaseIntermediateOutputPath>
+		<LangVersion>9</LangVersion>
 	</PropertyGroup>
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
@@ -11,7 +12,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<RootNamespace>Nez</RootNamespace>
 		<AssemblyName>Nez</AssemblyName>
-		<TargetFramework>net471</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<NoWarn>1591,1570,1572,1573</NoWarn>
