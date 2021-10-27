@@ -67,6 +67,25 @@ namespace Nez.Systems
 		{}
 
 		#region Strongly Typed Loaders
+		
+		public string LoadText(string name)
+		{
+			// no file extension. Assumed to be an xnb so let ContentManager load it
+			if (string.IsNullOrEmpty(Path.GetExtension(name)))
+				return Load<string>(name);
+
+			if (LoadedAssets.TryGetValue(name, out var asset))
+			{
+				if (asset is string str)
+					return str;
+			}
+
+			using var stream = Path.IsPathRooted(name) ? File.OpenRead(name) : TitleContainer.OpenStream(name);
+			using var reader = new StreamReader(stream);
+			var result = reader.ReadToEnd();
+			LoadedAssets[name] = result;
+			return result;
+		}
 
 		/// <summary>
 		/// loads a Texture2D either from xnb or directly from a png/jpg. Note that xnb files should not contain the .xnb file
