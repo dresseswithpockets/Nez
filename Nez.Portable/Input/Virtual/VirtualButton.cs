@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
@@ -341,6 +342,26 @@ namespace Nez
 
 
 			public override bool IsReleased => Input.IsKeyReleased(Key);
+		}
+
+
+		public class KeyboardModifiedLeftMouseButton : Node
+		{
+			public Keys Modifier;
+
+			public KeyboardModifiedLeftMouseButton(Keys modifier)
+			{
+				Modifier = modifier;
+			}
+
+
+			public override bool IsDown => Input.IsKeyDown(Modifier) && Input.LeftMouseButtonDown;
+
+
+			public override bool IsPressed => Input.IsKeyDown(Modifier) && Input.LeftMouseButtonPressed;
+
+
+			public override bool IsReleased => Input.LeftMouseButtonReleased;
 		}
 
 
