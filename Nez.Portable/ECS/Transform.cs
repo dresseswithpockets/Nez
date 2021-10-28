@@ -280,6 +280,14 @@ namespace Nez
 			return _children[index];
 		}
 
+		public Transform ReInsertChild(int from, int to)
+		{
+			var child = _children[from];
+			_children.RemoveAt(from);
+			_children.Insert(to, child);
+			return child;
+		}
+
 
 		#region Fluent setters
 
