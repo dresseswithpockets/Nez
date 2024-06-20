@@ -70,7 +70,7 @@ namespace Nez
 
 		#region static variables and constants
 
-		/// <summary>if true, the older FNA half-pixel offset will be used when creating the ortho matrix</summary>
+		/// if true, the older FNA half-pixel offset will be used when creating the ortho matrix. Autoset to true for FNA.
 		public static bool UseFnaHalfPixelMatrix = false;
 
 		const int MAX_SPRITES = 2048;
@@ -83,6 +83,10 @@ namespace Nez
 		static readonly short[] _indexData = GenerateIndexArray();
 
 		#endregion
+		
+		#if FNA
+		static Batcher() => UseFnaHalfPixelMatrix = true;
+		#endif
 
 		public Batcher(GraphicsDevice graphicsDevice)
 		{
@@ -847,6 +851,12 @@ namespace Nez
 			// out of space, flush
 			if (_numSprites >= MAX_SPRITES)
 				FlushBatch();
+
+			if (!_shouldIgnoreRoundingDestinations && ShouldRoundDestinations)
+			{
+				destinationX = Mathf.Round(destinationX);
+				destinationY = Mathf.Round(destinationY);
+			}
 
 			// Source/Destination/Origin Calculations. destinationW/H is the scale value so we multiply by the size of the texture region
 			var originX = (origin.X / sprite.Uvs.Width) / sprite.Texture2D.Width;
